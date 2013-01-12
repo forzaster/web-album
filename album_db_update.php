@@ -57,7 +57,7 @@ function crawlDir($path) {
 
 
 // main
-$PREFIX = "../Pictures";
+$PREFIX = "../../Pictures";
 $dir_path = $_GET['dir'];
 if (strncmp($dir_path, $PREFIX, strlen($PREFIX)) != 0) {
   echo "<h1>Cannot access!!</h1>\n";

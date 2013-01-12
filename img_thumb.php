@@ -3,7 +3,7 @@ $jpeg_file = $_GET['id'];
 $jpeg_file = stripcslashes($jpeg_file);
 header("Content-Type: image/jpeg");
 
-$PREFIX = "../Pictures";
+$PREFIX = "../../Pictures";
 if (strncmp($jpeg_file, $PREFIX, strlen($PREFIX)) != 0) {
   return;
 }

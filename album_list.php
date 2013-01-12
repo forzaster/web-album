@@ -11,7 +11,7 @@
 <?php
 
 // directory check
-$PREFIX = "../Pictures";
+$PREFIX = "../../Pictures";
 $dir_path = $_GET['dir'];
 $dir_path = stripcslashes($dir_path);
 if (strncmp($dir_path, $PREFIX, strlen($PREFIX)) != 0) {

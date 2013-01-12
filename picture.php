@@ -33,7 +33,7 @@ function draw() {
 <body>
 
 <?php
-$PREFIX = "../Pictures";
+$PREFIX = "../../Pictures";
 
 if (strncmp($dir_path, $PREFIX, strlen($PREFIX)) != 0) {
   echo "Cannot access!!";
