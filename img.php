@@ -1,5 +1,7 @@
 <?php
 
+include 'config.php';
+
 function rotate($file, $degree) {
   $img = ImageCreateFromJPEG($file);
   $newimg = ImageRotate($img, $degree, 0);
@@ -11,8 +13,7 @@ $jpeg_file = stripcslashes($jpeg_file);
 
 header("Content-Type: image/jpeg");
 
-$PREFIX = "../../Pictures";
-if (strncmp($jpeg_file, $PREFIX, strlen($PREFIX)) != 0) {
+if (strncmp($jpeg_file, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
   return;
 }
 

@@ -10,11 +10,12 @@
 
 <?php
 
+include 'config.php';
+
 // directory check
-$PREFIX = "../../Pictures";
 $dir_path = $_GET['dir'];
 $dir_path = stripcslashes($dir_path);
-if (strncmp($dir_path, $PREFIX, strlen($PREFIX)) != 0) {
+if (strncmp($dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
   echo "<h1>Cannot access!!</h1>";
   return;
 }
@@ -34,7 +35,7 @@ foreach ($dirs as $key => $value) {
   }
 }
 
-if (strncmp($prev_dir_path, $PREFIX, strlen($PREFIX)) != 0) {
+if (strncmp($prev_dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
   $prev_dir_path = "";
 }
 

@@ -4,6 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Home Picture</title>
 <?php
+include 'config.php';
+
 $dir_path = $_GET['dir'];
 $dir_path = stripcslashes($dir_path);
 $img_path = $_GET['id'];
@@ -33,14 +35,13 @@ function draw() {
 <body>
 
 <?php
-$PREFIX = "../../Pictures";
 
-if (strncmp($dir_path, $PREFIX, strlen($PREFIX)) != 0) {
+if (strncmp($dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
   echo "Cannot access!!";
   return;
 }
 
-if (strncmp($img_path, $PREFIX, strlen($PREFIX)) != 0) {
+if (strncmp($img_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
   echo "Cannot access!!";
   return;
 }
