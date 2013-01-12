@@ -7,9 +7,9 @@ include 'config.php';
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet" type="text/css" href="resource/lightbox.css" media="screen,tv" />
 
 <?php
+echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$LIGHTBOX_FOLDER/lightbox.css\" media=\"screen,tv\" />\n";
 echo "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"$LIGHTBOX_FOLDER/lightbox_plus_min.js\"></script>";
 ?>
 
@@ -66,19 +66,21 @@ if ($dir = opendir($dir_path)) {
 	if (preg_match("/^\w.*\.jpg/i", $file) == 1) {
 	  if (exif_thumbnail($file_path, $width, $height) != FALSE) {
 	    list($w,$h) = getimagesize($file_path);
-	    echo "<a href=\"./img.php?";
-	    echo "id=$file_path\" rel=\"lightbox1\">";
-	    echo "<img src=\"./img_thumb.php?id=";
-	    echo "$file_path\"></a><br>\n";
+
+	    if (file_exists($LIGHTBOX_FOLDER)) {
+	      echo "<a href=\"./img.php?";
+	      echo "id=$file_path\" rel=\"lightbox1\">";
+	      echo "<img src=\"./img_thumb.php?id=";
+	      echo "$file_path\"></a><br>\n";
+	    } else {
+	      echo "<a href=\"./picture.php?";
+	      echo "dir=$dir_path&";
+	      echo "id=$file_path&";
+	      echo "name=$file\">";
+	      echo "<img src=\"./img_thumb.php?id=";
+	      echo "$file_path\"></a><br>\n";
+	    }
 	    echo "$w x $h : ";
-	    /*
-	    echo "<a href=\"./picture.php?";
-	    echo "dir=$dir_path&";
-	    echo "id=$file_path&";
-	    echo "name=$file\">";
-	    echo "<img src=\"./img_thumb.php?id=";
-	    echo "$file_path\"></a><br>\n";
-	    */
 	  } else {
 	    echo "No thumbnail<br>\n";
 	  }
