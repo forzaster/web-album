@@ -1,16 +1,23 @@
 <html>
 <head>
+
+<?php
+include 'config.php';
+?>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="resource/lightbox.css" media="screen,tv" />
-<script type="text/javascript" charset="UTF-8" src="resource/lightbox_plus_min.js"></script>
+
+<?php
+echo "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"$LIGHTBOX_FOLDER/lightbox_plus_min.js\"></script>";
+?>
+
 <title>Home Picture</title>
 </head>
 <body>
 
 <?php
-
-include 'config.php';
 
 // directory check
 $dir_path = $_GET['dir'];
