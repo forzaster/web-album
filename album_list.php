@@ -1,16 +1,17 @@
 <html>
 <head>
 
-<?php
-include 'config.php';
-?>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <?php
-echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$LIGHTBOX_FOLDER/lightbox.css\" media=\"screen,tv\" />\n";
-echo "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"$LIGHTBOX_FOLDER/lightbox_plus_min.js\"></script>";
+
+include 'config.php';
+if (strlen($COLORBOX) > 0) {
+  include 'colorbox_setting.php';
+} else if (strlen($LIGHTBOX) > 0) {
+  include 'lightbox_setting.php';
+}
 ?>
 
 <title>Home Picture</title>
@@ -67,8 +68,8 @@ if ($dir = opendir($dir_path)) {
 	  if (exif_thumbnail($file_path, $width, $height) != FALSE) {
 	    list($w,$h) = getimagesize($file_path);
 
-	    if (file_exists($LIGHTBOX_FOLDER)) {
-	      echo "<a href=\"./img.php?";
+	    if (file_exists($LIGHTBOX) || file_exists($COLORBOX)) {
+	      echo "<a class=\"group1\" href=\"./img.php?";
 	      echo "id=$file_path\" rel=\"lightbox1\">";
 	      echo "<img src=\"./img_thumb.php?id=";
 	      echo "$file_path\"></a><br>\n";

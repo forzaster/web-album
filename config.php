@@ -2,6 +2,10 @@
 
 $PICTURE_FOLDER_TOP = "../../Pictures";
 
-$LIGHTBOX_FOLDER = "resource";
+$JQUERY = "../javascript/jquery-1.8.3.min.js";
+
+$LIGHTBOX = "resource";
+
+#$COLORBOX = "colorbox";
 
 ?>

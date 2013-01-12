@@ -1,16 +1,11 @@
 <html>
 <head>
 
-<?php
-include 'config.php';
-?>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <?php
-echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$LIGHTBOX_FOLDER/lightbox.css\" media=\"screen,tv\" />";
-echo "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"$LIGHTBOX_FOLDER/lightbox_plus_min.js\"></script>";
+include 'lightbox_setting.php';
 ?>
 <title>Home Picture All</title>
 </head>

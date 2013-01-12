@@ -1,8 +1,0 @@
-This app is for viewing pictures on the web server.
-It is written by php and javascript.
-User can view pictures on web server with web browser.
-This supports lightbox which is picture viewing javascript library.
-
----
-Sorry, this web-album app is under construction.
-Currently this app does not work in general web-server environment.
