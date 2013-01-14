@@ -30,24 +30,9 @@ if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   return;
 }
 
-// generate parent directory
-$dirs = split("/", $dir_path);
-$prev_dir_path = "";
-$prev_dir_count = count($dirs);
-foreach ($dirs as $key => $value) {
-  if ($key == $prev_dir_count - 1) {
-    break;
-  }
-  if ($prev_dir_path == "") {
-    $prev_dir_path = $value;
-  } else {
-    $prev_dir_path = $prev_dir_path."/".$value;
-  }
-}
-
-if (!checkPictureFolder($prev_dir_path, $PICTURE_FOLDER_TOP)) {
-  $prev_dir_path = "";
-}
+// parent dir
+include_once 'get_parent_folder.php';
+$prev_dir_path = getParentFolder($dir_path);
 
 // title(header of contents)
 $title = str_replace("../", "", $dir_path);
