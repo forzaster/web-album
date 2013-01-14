@@ -1,6 +1,6 @@
 <?php
 
-include 'jquery_setting.php';
+include_once 'jquery_setting.php';
 
 echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$COLORBOX/colorbox.css\" media=\"screen,tv\" />\n";
 echo "<script type=\"text/javascript\" charset=\"UTF-8\" src=\"$COLORBOX/jquery.colorbox-min.js\"></script>\n";

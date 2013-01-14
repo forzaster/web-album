@@ -8,7 +8,7 @@
 
 <?php
 
-include 'config.php';
+include_once 'config.php';
 
 // funtions
 function insert($name, $path, $date) {
@@ -60,7 +60,7 @@ function crawlDir($path) {
 
 // main
 $dir_path = $_GET['dir'];
-include 'check_picture_folder.php';
+include_once 'check_picture_folder.php';
 if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   echo "<h1>Cannot access!!</h1>\n";
   return;
@@ -137,7 +137,7 @@ if (!$close_flag){
 echo 'DB disconnect success.<br>';
 
 // footer
-include 'make_footer.php';
+include_once 'make_footer.php';
 makeFooter($prev_dir_path);
 
 ?>

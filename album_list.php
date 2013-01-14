@@ -6,11 +6,11 @@
 
 <?php
 
-include 'config.php';
+include_once 'config.php';
 if (strlen($COLORBOX) > 0) {
-  include 'colorbox_setting.php';
+  include_once 'colorbox_setting.php';
 } else if (strlen($LIGHTBOX) > 0) {
-  include 'lightbox_setting.php';
+  include_once 'lightbox_setting.php';
 }
 ?>
 
@@ -24,7 +24,7 @@ if (strlen($COLORBOX) > 0) {
 $dir_path = $_GET['dir'];
 $dir_path = stripcslashes($dir_path);
 
-include 'check_picture_folder.php';
+include_once 'check_picture_folder.php';
 if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   echo "<h1>Cannot access!!</h1>";
   return;
@@ -96,7 +96,7 @@ if ($dir = opendir($dir_path)) {
 }
 
 // footer
-include 'make_footer.php';
+include_once 'make_footer.php';
 makeFooter($prev_dir_path);
 
 ?>

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Home Picture</title>
 <?php
-include 'config.php';
+include_once 'config.php';
 
 $dir_path = $_GET['dir'];
 $dir_path = stripcslashes($dir_path);
@@ -36,7 +36,7 @@ function draw() {
 
 <?php
 
-include 'check_picture_folder.php';
+include_once 'check_picture_folder.php';
 if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   echo "Cannot access!!";
   return;
@@ -108,7 +108,7 @@ if ($exif == FALSE) {
   }
 }
 
-include "make_footer.php";
+include_once "make_footer.php";
 makeFooter($dir_path);
 ?>
 

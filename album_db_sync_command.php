@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-include 'config.php';
+include_once 'config.php';
 
 // funtions
 function msg($log) {
@@ -78,7 +78,7 @@ msg("<br>");
 $dir_path = $_GET['dir'];
 msg("sync $dir_path");
 
-include 'check_picture_folder.php';
+include_once 'check_picture_folder.php';
 if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   msg("Cannot access!!");
   return;

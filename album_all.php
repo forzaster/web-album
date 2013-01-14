@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <?php
-include 'lightbox_setting.php';
+include_once 'lightbox_setting.php';
 ?>
 <title>Home Picture All</title>
 </head>
