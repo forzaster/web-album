@@ -94,12 +94,9 @@ if ($dir = opendir($dir_path)) {
 }
 
 // footer
-echo "<hr>";
-if ($prev_dir_path != "") {
-  echo "<a href=\"./album_list.php?dir=$prev_dir_path\">上へ</a>\n";
-} else {
-  echo "<button>test</button>\n";
-}
+include 'make_footer.php';
+makeFooter($prev_dir_path);
+
 ?>
 
 </body>

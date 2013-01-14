@@ -154,12 +154,9 @@ if (!$close_flag){
 echo 'DB disconnect success.<br>';
 
 // footer
-echo "<hr>";
-if ($prev_dir_path != "") {
-  echo "<a href=\"./picture_list.php?dir=$prev_dir_path\">上へ</a>\n";
-} else {
-  echo "<button>test</button>\n";
-}
+include 'make_footer.php';
+makeFooter($prev_dir_path);
+
 ?>
 
 </body>
