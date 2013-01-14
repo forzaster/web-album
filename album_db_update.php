@@ -60,7 +60,8 @@ function crawlDir($path) {
 
 // main
 $dir_path = $_GET['dir'];
-if (strncmp($dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+include 'check_picture_folder.php';
+if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   echo "<h1>Cannot access!!</h1>\n";
   return;
 }
@@ -80,33 +81,15 @@ foreach ($dirs as $key => $value) {
   }
 }
 
-if (strncmp($prev_dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+if (!checkPictureFolder($prev_dir_path, $PICTURE_FOLDER_TOP)) {
   $prev_dir_path = "";
+  return;
 }
 
 // title(header of contents)
 $title = str_replace("../", "", $dir_path);
 echo "<h2>$title</h2>\n";
 echo "<hr>\n";
-
-// generate parent dir path
-$dirs = split("/", $dir_path);
-$prev_dir_path = "";
-$prev_dir_count = count($dirs);
-foreach ($dirs as $key => $value) {
-  if ($key == $prev_dir_count - 1) {
-    break;
-  }
-  if ($prev_dir_path == "") {
-    $prev_dir_path = $value;
-  } else {
-    $prev_dir_path = $prev_dir_path."/".$value;
-  }
-}
-
-if (strncmp($prev_dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
-  $prev_dir_path = "";
-}
 
 // connect sql
 $link = mysql_connect('localhost', 'admin', 'password');

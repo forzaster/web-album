@@ -13,7 +13,8 @@ $jpeg_file = stripcslashes($jpeg_file);
 
 header("Content-Type: image/jpeg");
 
-if (strncmp($jpeg_file, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+include 'check_picture_folder.php';
+if (!checkPictureFolder($jpeg_file, $PICTURE_FOLDER_TOP)) {
   return;
 }
 

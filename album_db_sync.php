@@ -75,28 +75,11 @@ $dir_path = $_GET['dir'];
 $dir_path = stripcslashes($dir_path);
 $progress_value = $_GET['progress'];
 msg("sync $dir_path");
-if (strncmp($dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+
+include 'check_picture_folder.php';
+if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   msg("Cannot access!!");
   return;
-}
-
-// generate parent directory path
-$dirs = split("/", $dir_path);
-$prev_dir_path = "";
-$prev_dir_count = count($dirs);
-foreach ($dirs as $key => $value) {
-  if ($key == $prev_dir_count - 1) {
-    break;
-  }
-  if ($prev_dir_path == "") {
-    $prev_dir_path = $value;
-  } else {
-    $prev_dir_path = $prev_dir_path."/".$value;
-  }
-}
-
-if (strncmp($prev_dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
-  $prev_dir_path = "";
 }
 
 // title(header of contents)
@@ -117,8 +100,9 @@ foreach ($dirs as $key => $value) {
   }
 }
 
-if (strncmp($prev_dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+if (!checkPictureFolder($prev_dir_path, $PICTURE_FOLDER_TOP)) {
   $prev_dir_path = "";
+  return;
 }
 
 // connect sql
@@ -146,26 +130,8 @@ mysql_set_charset('utf8');
 // crawl and insert picture to DB
 crawlDir($dir_path);
 
-
 echo "var progress = document.getElementsByTagName(\"progress\")[0];";
 echo "progress.value = $progress_value;";
-
-/*
-// dump DB contents
-$result = mysql_query('SELECT ID,NAME,PATH,DATE FROM pictures');
-if (!$result) {
-  msg("SELECT query failed.");
-}
-
-echo "DB contents are <br>\n";
-while ($row = mysql_fetch_assoc($result)) {
-  print('ID='.$row['ID']);
-  print(',NAME='.$row['NAME']);
-  print(',PATH='.$row['PATH']);
-  print(',DATE='.$row['DATE']);
-  print('<br>');
-}
-*/
 
 // close DB
 $close_flag = mysql_close($link);

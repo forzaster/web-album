@@ -36,12 +36,12 @@ function draw() {
 
 <?php
 
-if (strncmp($dir_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+include 'check_picture_folder.php';
+if (!checkPictureFolder($dir_path, $PICTURE_FOLDER_TOP)) {
   echo "Cannot access!!";
   return;
 }
-
-if (strncmp($img_path, $PICTURE_FOLDER_TOP, strlen($PICTURE_FOLDER_TOP)) != 0) {
+if (!checkPictureFolder($img_path, $PICTURE_FOLDER_TOP)) {
   echo "Cannot access!!";
   return;
 }
@@ -108,9 +108,8 @@ if ($exif == FALSE) {
   }
 }
 
-echo "<hr>";
-echo "<a href=\"./picture_list.php?dir=$dir_path\">";
-echo "上へ</a>"
+include "make_footer.php";
+makeFooter($dir_path);
 ?>
 
 <!--
