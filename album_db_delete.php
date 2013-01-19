@@ -2,8 +2,9 @@
 
 // funtions
 function msg($log) {
-  echo "document.write(\"$log<br>\");";
+  //echo "document.write(\"$log<br>\");";
   //echo "postMessage(\"$log<br>\");";
+  echo "$log<br>";
 }
 
 function deleteAll() {

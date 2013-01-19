@@ -4,8 +4,9 @@ include_once 'config.php';
 
 // funtions
 function msg($log) {
-  echo "document.write(\"$log<br>\");";
+  //echo "document.write(\"$log<br>\");";
   //echo "postMessage(\"$log<br>\");";
+  echo "$log<br>";
 }
 
 function deleteAll() {
@@ -72,6 +73,9 @@ header("Content-type: application/x-javascript");
 msg("<br>");
 
 $dir_path = $_GET['dir'];
+if ($dir_path == null) {
+  $dir_path = $PICTURE_FOLDER_TOP;
+}
 $dir_path = stripcslashes($dir_path);
 $progress_value = $_GET['progress'];
 msg("sync $dir_path");
@@ -114,8 +118,8 @@ mysql_set_charset('utf8');
 // crawl and insert picture to DB
 crawlDir($dir_path);
 
-echo "var progress = document.getElementsByTagName(\"progress\")[0];";
-echo "progress.value = $progress_value;";
+//echo "var progress = document.getElementsByTagName(\"progress\")[0];";
+//echo "progress.value = $progress_value;";
 
 // close DB
 $close_flag = mysql_close($link);

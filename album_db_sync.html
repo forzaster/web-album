@@ -2,18 +2,103 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<script language="javascript" type="text/javascript">
+
+function createXMLHttpRequest() {
+  if (!window.XMLHttpRequest) {
+    try {
+      return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+    } catch (e) {}
+    try {
+      return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+    } catch (e) {}
+    try {
+      return new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {}
+    throw new Error("This browser does not support XMLHttpRequest.");
+  };
+  return new XMLHttpRequest();
+}
+
+function showButtons() {
+  var buttons = document.getElementById("buttons");
+  buttons.innerHTML = "<input type=button value='DB sync' onclick='dbSync();'/><input type=button value='DB delete' onclick='dbDelete();'/><input type=button value='DB dump' onclick='dbDump();'/>";
+}
+
+function prepare(msg) {
+  var resultDoc = document.getElementById("result");
+  resultDoc.innerHTML = msg;
+  var prog = document.getElementById("progress");
+  prog.innerHTML = "<progress id='progressBar'></progress>";
+  var buttons = document.getElementById("buttons");
+  buttons.innerHTML = "";
+}
+
+function progressDone() {
+  var result = document.getElementById("progress");
+  result.innerHTML = "";
+
+  showButtons();
+}
+
+function dbSync() {
+  prepare("DB syncing...");
+
+  var req = new createXMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var resultDoc = document.getElementById("result");
+      resultDoc.innerHTML = req.responseText;
+      progressDone();
+    } else {
+      var resultDoc = document.getElementById("result");
+      resultDoc.innerHTML = "db syncing... " + this.readyState + "/" + this.status;
+    }
+  }
+  req.open("GET", "./album_db_sync.php?");
+  req.send(null);
+
+}
+
+function dbDelete() {
+  prepare("DB deleting...");
+
+  var req = new createXMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var resultDoc = document.getElementById("result");
+      resultDoc.innerHTML = req.responseText;
+      progressDone();
+    }
+  }
+  req.open("GET", "./album_db_delete.php");
+  req.send(null);
+}
+
+function dbDump() {
+  prepare("DB dumping...");
+
+  var req = new createXMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var resultDoc = document.getElementById("result");
+      resultDoc.innerHTML = req.responseText;
+      progressDone();
+    }
+  }
+  req.open("GET", "./album_db_dump.php");
+  req.send(null);
+}
+</script>
 <title>Picture DB sync</title>
 </head>
-<body>
 
+<body onload="showButtons();">
 <h3>DB sync</h3>
-<p><progress max="100" value="0"></progress></p>
-
-<script type="text/javascript" 
-src="./album_db_delete.php"></script>
-
-<script type="text/javascript"
-src="./album_db_sync.php?dir=../../Pictures&progress=100"></script>
+<div id="buttons"></div>
+<div id="progress"></div><br>
+<div id="result"></div><br>
 
 </body>
 </html>

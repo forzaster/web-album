@@ -2,8 +2,9 @@
 
 // funtions
 function msg($log) {
-  echo "document.write(\"$log<br>\");";
+  //echo "document.write(\"$log<br>\");";
   //echo "postMessage(\"$log<br>\");";
+  echo "$log<br>";
 }
 
 function dump() {
@@ -52,8 +53,8 @@ if (!$close_flag){
 
 msg("DB disconnect success");
 
-echo "var progress = document.getElementsByTagName(\"progress\")[0];";
-echo "progress.max = 100;";
-echo "progress.value = 100;";
+//echo "var progress = document.getElementsByTagName(\"progress\")[0];";
+//echo "progress.max = 100;";
+//echo "progress.value = 100;";
 
 ?>
