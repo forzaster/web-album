@@ -41,6 +41,7 @@ echo "<hr>\n";
 
 // crawl and list pictures
 if ($dir = opendir($dir_path)) {
+  $photoCount = 0;
   while (($file = readdir($dir)) !== false) {
     if ($file != "." && $file != "..") {
       $file_path = "$dir_path"."/"."$file";
@@ -59,20 +60,27 @@ if ($dir = opendir($dir_path)) {
 	      echo "<a class=\"group1\" href=\"./img.php?";
 	      echo "id=$file_path\" rel=\"lightbox1\">";
 	      echo "<img src=\"./img_thumb.php?id=";
-	      echo "$file_path\"></a><br>\n";
+	      echo "$file_path\"></a>";
 	    } else {
 	      echo "<a href=\"./picture.php?";
 	      echo "dir=$dir_path&";
 	      echo "id=$file_path&";
 	      echo "name=$file\">";
 	      echo "<img src=\"./img_thumb.php?id=";
-	      echo "$file_path\"></a><br>\n";
+	      echo "$file_path\"></a>";
 	    }
-	    echo "$w x $h : ";
+	    //echo "$w x $h : ";
 	  } else {
 	    echo "No thumbnail<br>\n";
 	  }
-	  echo "$file<p>\n";
+	  //echo "$file<p>\n";
+          $photoCount += 1;
+          if ($photoCount == 3) {
+              echo "<p>";
+              $photoCount = 0;
+          } else {
+              echo "&nbsp;&nbsp;&nbsp;";
+          }
 	}
       }
     }
