@@ -56,9 +56,8 @@ function dbSync() {
       resultDoc.innerHTML = "db syncing... " + this.readyState + "/" + this.status;
     }
   }
-  req.open("GET", "./album_db_sync.php?");
+  req.open("GET", "./album_db_sync.php");
   req.send(null);
-
 }
 
 function dbDelete() {
