@@ -76,7 +76,7 @@ if ($dir = opendir($dir_path)) {
 	  }
 	  //echo "$file<p>\n";
           $photoCount += 1;
-          if ($photoCount == 3) {
+          if ($photoCount == $PHOTO_COLUMNS) {
               echo "<p>";
               $photoCount = 0;
           } else {

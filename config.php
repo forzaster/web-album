@@ -8,4 +8,6 @@ $LIGHTBOX = "resource";
 
 #$COLORBOX = "colorbox";
 
+$PHOTO_COLUMNS = 3;
+
 ?>

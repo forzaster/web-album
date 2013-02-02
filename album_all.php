@@ -12,7 +12,7 @@ include_once 'lightbox_setting.php';
 <body>
 
 <?php
-
+include_once 'config.php';
 function msg($log) {
   echo $log;
 }
@@ -41,7 +41,7 @@ if (!$result) {
   msg("SELECT query failed.");
 }
 
-showNextPage($result);
+showNextPage($result, $PHOTO_COLUMNS);
 
 // close DB
 $close_flag = mysql_close($link);
@@ -51,21 +51,52 @@ if (!$close_flag){
 
 echo "<br><hr>";
 
-function showNextPage($res) {
+function showNextPage($res, $photo_columns) {
   $COUNT_IN_PAGE = 50;
   $count = 0;
+  $photoCount = 0;
+  $prevDateYmd = "";
+  $prevDateYm = "";
+  $firstFlag = true;
+  $finishFlag = false;
   while ($row = mysql_fetch_assoc($res)) {
-    if ($COUNT_IN_PAGE > $count) {
-      $path = $row['PATH'];
-      $date = $row['DATE'];
-      echo "<p>$date<br><a href=\"./img.php?";
-      echo "id=$path\" rel=\"lightbox1\">";
-      echo "<img src=\"./img_thumb.php?id=";
-      echo "$path\"></a></p>\n";
+    $path = $row['PATH'];
+    $date = $row['DATE'];
+    $dateYmd = date('Y/m/d', strtotime($date));
+    $dateYm = date('Y/m', strtotime($date));
+    if ($firstFlag == true) {
+        $prevDateYm = $dateYm;
+        $firstFlag = false;
+    }
+    if ($prevDateYm != $dateYm) {
+        if ($finishFlag == true) {
+            break;
+        }
+        $prevDateYm = $dateYm;
+        echo "<hr>\n";
+    }
+    if ($prevDateYmd != $dateYmd) {
+        $photoCount = 0;
+        echo "<p>";
+        echo $dateYmd;
+        echo "<br>\n";
+        $prevDateYmd = $dateYmd;
+    }
+    echo "<a href=\"./img.php?";
+    echo "id=$path\" rel=\"lightbox1\">";
+    echo "<img src=\"./img_thumb.php?id=";
+    echo "$path\"></a>\n";
+    $photoCount += 1;
+    if ($photoCount == $photo_columns) {
+        echo "<p>\n";
+        $photoCount = 0;
     } else {
-      break;
+        echo "&nbsp;&nbsp;&nbsp;\n";
     }
     $count++;
+    if ($count > $COUNT_IN_PAGE) {
+        $finishFlag = true;
+    }
   }
 }
 
