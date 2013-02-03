@@ -10,11 +10,11 @@ $prevEndDate = "";
 $dir = $_GET['dir'];
 
 session_start();
-if (isset($_SESSION["PREV_START_DATA"])) {
-    $prevStartDate = $_SESSION["PREV_START_DATA"];
+if (isset($_SESSION["PREV_START_DATE"])) {
+    $prevStartDate = $_SESSION["PREV_START_DATE"];
 }
-if (isset($_SESSION["PREV_END_DATA"])) {
-    $prevEndDate = $_SESSION["PREV_END_DATA"];
+if (isset($_SESSION["PREV_END_DATE"])) {
+    $prevEndDate = $_SESSION["PREV_END_DATE"];
 }
 
 // connect sql
@@ -34,6 +34,10 @@ mysql_set_charset('utf8');
 
 $where = "";
 
+if ($prevStartDate != "") {
+  $where = "WHERE DATE <='$prevStartDate'";
+}
+
 if ($dir != null) {
 switch ($dir) {
   case "next":
@@ -43,13 +47,10 @@ switch ($dir) {
     break;
   case "prev":
     if ($prevStartDate != "") {
-      $where = "WHERE DATE <'$prevStartDate'";
+      $where = "WHERE DATE <='$prevStartDate'";
     }
     break;
   default:
-    if ($prevStartDate != "") {
-      $where = "WHERE DATE <'$prevStartDate'";
-    }
     break;
 }
 }
@@ -88,7 +89,7 @@ function showNextPage($res, $photo_columns) {
     }
     if ($prevDateYm != $dateYm) {
         if ($finishFlag == true) {
-            $_SESSION["PREV_END_DATA"] = $date;
+            $_SESSION["PREV_END_DATE"] = $date;
             break;
         }
         $prevDateYm = $dateYm;
