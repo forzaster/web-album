@@ -4,10 +4,6 @@ function msg($log) {
   echo $log;
 }
 
-// title(header of contents)
-echo "<h2>All</h2>\n";
-echo "<hr>\n";
-
 // connect sql
 $link = mysql_connect('localhost', 'admin', 'password');
 if (!$link) {

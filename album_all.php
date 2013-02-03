@@ -31,7 +31,12 @@ function loadPhotos() {
 <title>Home Picture All</title>
 </head>
 <body onload="loadPhotos()">
+
+<h2>Picture All</h2>
+<hr>
+
 <div id="contents"></div>
 
+<hr>     
 </body>
 </html>
