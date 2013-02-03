@@ -4,6 +4,19 @@ function msg($log) {
   echo $log;
 }
 
+$prevStartDate = "";
+$prevEndDate = "";
+
+$dir = $_GET['dir'];
+
+session_start();
+if (isset($_SESSION["PREV_START_DATA"])) {
+    $prevStartDate = $_SESSION["PREV_START_DATA"];
+}
+if (isset($_SESSION["PREV_END_DATA"])) {
+    $prevEndDate = $_SESSION["PREV_END_DATA"];
+}
+
 // connect sql
 $link = mysql_connect('localhost', 'admin', 'password');
 if (!$link) {
@@ -19,7 +32,30 @@ if (!$db_selected){
 
 mysql_set_charset('utf8');
 
-$result = mysql_query('SELECT PATH,DATE FROM pictures ORDER BY DATE DESC');
+$where = "";
+
+if ($dir != null) {
+switch ($dir) {
+  case "next":
+    if ($prevEndDate != "") {
+      $where = "WHERE DATE <'$prevEndDate'";
+    }
+    break;
+  case "prev":
+    if ($prevStartDate != "") {
+      $where = "WHERE DATE <'$prevStartDate'";
+    }
+    break;
+  default:
+    if ($prevStartDate != "") {
+      $where = "WHERE DATE <'$prevStartDate'";
+    }
+    break;
+}
+}
+
+$queryCondition = "SELECT PATH,DATE FROM pictures $where ORDER BY DATE DESC";
+$result = mysql_query($queryCondition);
 if (!$result) {
   msg("SELECT query failed.");
 }
@@ -31,8 +67,6 @@ $close_flag = mysql_close($link);
 if (!$close_flag){
   msg("DB disconnect failed.");
 }
-
-echo "<br><hr>";
 
 function showNextPage($res, $photo_columns) {
   $COUNT_IN_PAGE = 50;
@@ -48,33 +82,35 @@ function showNextPage($res, $photo_columns) {
     $dateYmd = date('Y/m/d', strtotime($date));
     $dateYm = date('Y/m', strtotime($date));
     if ($firstFlag == true) {
+        $_SESSION["PREV_START_DATE"] = $date;
         $prevDateYm = $dateYm;
         $firstFlag = false;
     }
     if ($prevDateYm != $dateYm) {
         if ($finishFlag == true) {
+            $_SESSION["PREV_END_DATA"] = $date;
             break;
         }
         $prevDateYm = $dateYm;
-        echo "<hr>\n";
+        msg("<hr>\n");
     }
     if ($prevDateYmd != $dateYmd) {
         $photoCount = 0;
-        echo "<p>";
-        echo $dateYmd;
-        echo "<br>\n";
+        msg("<p>");
+        msg($dateYmd);
+        msg("<br>\n");
         $prevDateYmd = $dateYmd;
     }
-    echo "<a href=\"./img.php?";
-    echo "id=$path\" rel=\"lightbox1\">";
-    echo "<img src=\"./img_thumb.php?id=";
-    echo "$path\"></a>\n";
+    msg("<a href=\"./img.php?");
+    msg("id=$path\" rel=\"lightbox1\">");
+    msg("<img src=\"./img_thumb.php?id=");
+    msg("$path\"></a>\n");
     $photoCount += 1;
     if ($photoCount == $photo_columns) {
-        echo "<p>\n";
+        msg("<p>\n");
         $photoCount = 0;
     } else {
-        echo "&nbsp;&nbsp;&nbsp;\n";
+        msg("&nbsp;&nbsp;&nbsp;\n");
     }
     $count++;
     if ($count > $COUNT_IN_PAGE) {

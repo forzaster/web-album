@@ -10,7 +10,7 @@ include_once 'lightbox_setting.php';
 <script type="text/javascript" charset="UTF-8" src="javascript/myLib.js"></script>
 
 <script language="javascript" type="text/javascript">
-function loadPhotos() {
+function loadPhotos(args) {
   var container = document.getElementById("contents");
   container.innerHTML = "loading...";
 
@@ -21,7 +21,11 @@ function loadPhotos() {
       container.innerHTML = req.responseText;
     }
   }
-  req.open("GET", "./album_all_page.php");
+  var adr = "./album_all_page.php";
+  if (args != null) {
+      adr += "?" + args;
+  }
+  req.open("GET", adr);
   req.send(null);
 
 }
@@ -30,13 +34,15 @@ function loadPhotos() {
 
 <title>Home Picture All</title>
 </head>
-<body onload="loadPhotos()">
+<body onload="loadPhotos(null);">
 
 <h2>Picture All</h2>
 <hr>
 
 <div id="contents"></div>
 
-<hr>     
+<hr>
+<input type=button value='prev' onclick='loadPhotos("dir=prev");'/>
+<input type=button value='next' onclick='loadPhotos("dir=next");'/>
 </body>
 </html>
