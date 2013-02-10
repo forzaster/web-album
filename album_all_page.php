@@ -47,8 +47,11 @@ switch ($dir) {
     break;
   case "prev":
     if ($prevStartDate != "") {
-      $where = "WHERE DATE <='$prevStartDate'";
+      $where = "WHERE DATE >'$prevStartDate'";
     }
+    break;
+  case "init":
+    $where = "";
     break;
   default:
     break;
@@ -61,12 +64,35 @@ if (!$result) {
   msg("SELECT query failed.");
 }
 
+if ($dir == "prev") {
+  seekToPrev($result);
+}
 showNextPage($result, $PHOTO_COLUMNS);
 
 // close DB
 $close_flag = mysql_close($link);
 if (!$close_flag){
   msg("DB disconnect failed.");
+}
+
+function seekToPrev($res) {
+  $COUNT_IN_PAGE = 50;
+  $count = mysql_num_rows($res);
+  if ($count > $COUNT_IN_PAGE) {
+    $idx = $count - $COUNT_IN_PAGE;
+    $prevDateYm = '';
+    while ($idx >= 0 && mysql_data_seek($res, $idx)) {
+      $row = mysql_fetch_assoc($res);
+      $date = $row['DATE'];
+      $dateYm = date('Y/m', strtotime($date));
+      if ($prevDateYm != $dateYm && $prevDateYm != '') {
+        mysql_data_seek($res, $idx+1);
+        break;
+      }
+      $prevDateYm = $dateYm;
+      $idx -= 1;
+    }
+  }
 }
 
 function showNextPage($res, $photo_columns) {

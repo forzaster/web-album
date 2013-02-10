@@ -42,6 +42,7 @@ function loadPhotos(args) {
 <div id="contents"></div>
 
 <hr>
+<input type=button value='init' onclick='loadPhotos("dir=init");'/>
 <input type=button value='prev' onclick='loadPhotos("dir=prev");'/>
 <input type=button value='next' onclick='loadPhotos("dir=next");'/>
 </body>
